@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUE NOTE DIARY | ジャズファンサイト</title>
+<meta name="description" content="ジャズを愛する個人運営のファンサイト。名盤、名演奏、日々のジャズ体験を綴ります。">
+<meta name="robots" content="noai, noimageai">
+<style>
+  :root{
+    --navy: #0a1128;
+    --deep-blue: #14213d;
+    --electric-blue: #3a6ea5;
+    --sky: #7ea8d8;
+    --black: #050608;
+    --off-white: #eef1f6;
+    --gold: #c9a961;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background: var(--black);
+    color: var(--off-white);
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+  }
+  a{color: var(--sky); text-decoration: none;}
+  a:hover{color: var(--gold);}
+
+  header{
+    position: relative;
+    background: linear-gradient(160deg, var(--black) 0%, var(--navy) 55%, var(--deep-blue) 100%);
+    padding: 80px 20px 60px;
+    text-align: center;
+    border-bottom: 1px solid rgba(126,168,216,0.25);
+    overflow: hidden;
+  }
+  header::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(126,168,216,0.04) 0 1px, transparent 1px 40px);
+    pointer-events: none;
+  }
+  .site-title{
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    letter-spacing: 0.25em;
+    color: var(--off-white);
+    font-weight: 400;
+    position: relative;
+  }
+  .site-title span{
+    display:block;
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    margin-bottom: 18px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .site-tagline{
+    margin-top: 22px;
+    color: var(--sky);
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    position: relative;
+  }
+
+  nav{
+    display:flex;
+    justify-content:center;
+    flex-wrap: wrap;
+    gap: 2px;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(126,168,216,0.2);
+  }
+  nav a{
+    color: var(--off-white);
+    padding: 16px 26px;
+    font-size: 0.88rem;
+    letter-spacing: 0.2em;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    border-bottom: 2px solid transparent;
+    transition: 0.25s;
+  }
+  nav a:hover, nav a.active{
+    border-bottom: 2px solid var(--gold);
+    color: var(--gold);
+    background: rgba(58,110,165,0.12);
+  }
+
+  main{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 70px 24px;
+  }
+
+  section{margin-bottom: 90px;}
+
+  .section-label{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  h2{
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--off-white);
+    margin-bottom: 28px;
+    border-left: 3px solid var(--electric-blue);
+    padding-left: 16px;
+  }
+
+  .lede p{
+    color: #c7cfdd;
+    margin-bottom: 18px;
+    font-size: 0.98rem;
+  }
+
+  .vinyl-divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 14px;
+    margin: 60px 0;
+    color: rgba(126,168,216,0.5);
+  }
+  .vinyl-divider::before, .vinyl-divider::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background: linear-gradient(90deg, transparent, rgba(126,168,216,0.4), transparent);
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+  }
+  .card{
+    background: var(--deep-blue);
+    border: 1px solid rgba(126,168,216,0.15);
+    padding: 26px 22px;
+    transition: 0.3s;
+  }
+  .card:hover{
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .card h3{
+    font-size: 1.05rem;
+    color: var(--sky);
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+  .card p{
+    font-size: 0.88rem;
+    color: #a9b4c8;
+  }
+
+  .latest-entry{
+    background: var(--navy);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+  }
+  .latest-entry time{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+  }
+  .latest-entry p{
+    margin-top: 10px;
+    color: #cdd5e4;
+    font-size: 0.95rem;
+  }
+  .more-link{
+    display:inline-block;
+    margin-top: 18px;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+
+  .links-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .links-grid a{
+    display:block;
+    text-align:center;
+    padding: 16px 10px;
+    background: var(--navy);
+    border: 1px solid rgba(126,168,216,0.2);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    color: var(--off-white);
+    transition: 0.25s;
+  }
+  .links-grid a:hover{
+    background: var(--electric-blue);
+    color: var(--black);
+    border-color: var(--gold);
+  }
+
+  form{
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    max-width: 480px;
+  }
+  form input, form textarea{
+    background: var(--navy);
+    border: 1px solid rgba(126,168,216,0.3);
+    color: var(--off-white);
+    padding: 12px 14px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.9rem;
+  }
+  form textarea{min-height: 120px; resize: vertical;}
+  form button{
+    align-self: flex-start;
+    background: var(--electric-blue);
+    color: var(--off-white);
+    border: none;
+    padding: 12px 30px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    cursor:pointer;
+    transition: 0.25s;
+  }
+  form button:hover{background: var(--gold); color: var(--black);}
+
+  footer{
+    background: var(--navy);
+    padding: 40px 20px;
+    text-align:center;
+    border-top: 1px solid rgba(126,168,216,0.2);
+  }
+  .ai-notice{
+    max-width: 700px;
+    margin: 0 auto 20px;
+    font-size: 0.75rem;
+    color: #7d8aa3;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7;
+  }
+  .copyright{
+    font-size: 0.78rem;
+    color: #5f6b82;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-title">
+    <span>JAZZ FAN SITE</span>
+    BLUE NOTE DIARY
+  </div>
+  <p class="site-tagline">— 深夜のレコード棚から、ジャズという言葉のない対話を —</p>
+</header>
+
+<nav>
+  <a href="index.html" class="active">HOME</a>
+  <a href="blog.html">BLOG</a>
+  <a href="gallery.html">GALLERY</a>
+  <a href="playlist.html">PLAYLIST</a>
+  <a href="about.html">ABOUT</a>
+</nav>
+
+<main>
+
+  <section class="lede">
+    <p class="section-label">WELCOME</p>
+    <h2>即興という名の会話</h2>
+    <p>スイングのリズムに身を委ねる夜も、モードジャズの静けさに浸る夜もある。このサイトは、ジャズという広大な音楽をめぐる個人的な記録です。名盤との出会い、ライブハウスの空気、レコードジャケットの美しさ——言葉にしきれないものを、少しずつ書き留めていきます。</p>
+    <p>商用目的のない、個人のファン活動によるサイトです。ゆっくりお楽しみください。</p>
+  </section>
+
+  <div class="vinyl-divider">●</div>
+
+  <section>
+    <p class="section-label">LATEST DIARY</p>
+    <h2>最新の日記</h2>
+    <div class="latest-entry">
+      <time>2026.07.12</time>
+      <p>まだ日記はありません。BLOGページで随時更新していきます。</p>
+    </div>
+    <a class="more-link" href="blog.html">→ すべての日記を読む</a>
+  </section>
+
+  <div class="vinyl-divider">●</div>
+
+  <section>
+    <p class="section-label">EXPLORE</p>
+    <h2>コンテンツ</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>BLOG</h3>
+        <p>ジャズにまつわる日々の記録。聴いた音楽、感じたことを綴る日記です。</p>
+      </div>
+      <div class="card">
+        <h3>GALLERY</h3>
+        <p>アルバムジャケットやライブの記憶、視覚的なジャズの魅力を集めた場所。</p>
+      </div>
+      <div class="card">
+        <h3>PLAYLIST</h3>
+        <p>おすすめの楽曲やアルバムをまとめたプレイリスト集。</p>
+      </div>
+      <div class="card">
+        <h3>ABOUT</h3>
+        <p>このサイトとジャズへの想いについて。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="vinyl-divider">●</div>
+
+  <section>
+    <p class="section-label">CONNECT</p>
+    <h2>リンク</h2>
+    <div class="links-grid">
+      <a href="https://rookie.shonenjump.com/" target="_blank" rel="noopener">Jump Rookie</a>
+      <a href="https://days.creativevillage.ne.jp/" target="_blank" rel="noopener">DaysNEO</a>
+      <a href="https://www.pixiv.net/" target="_blank" rel="noopener">Pixiv</a>
+      <a href="https://kakuyomu.jp/" target="_blank" rel="noopener">Kakuyomu</a>
+      <a href="https://bsky.app/" target="_blank" rel="noopener">Bluesky</a>
+      <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube: リリポピ</a>
+    </div>
+  </section>
+
+  <div class="vinyl-divider">●</div>
+
+  <section>
+    <p class="section-label">CONTACT</p>
+    <h2>お問い合わせ</h2>
+    <form action="https://formspree.io/f/maqvpvoz" method="POST">
+      <input type="text" name="name" placeholder="お名前" required>
+      <input type="email" name="email" placeholder="メールアドレス" required>
+      <textarea name="message" placeholder="メッセージ" required></textarea>
+      <button type="submit">送信する</button>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  <p class="ai-notice">
+    当サイトのすべてのコンテンツ（文章・画像・デザイン）は、AI学習への利用を禁止します。
+    No part of this website's content, including text, images, and design, may be used for AI training purposes.
+  </p>
+  <p class="copyright">© 2026 BLUE NOTE DIARY / Azalea Creative Room</p>
+</footer>
+
+</body>
+</html>
