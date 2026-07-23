@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playlist ｜ JAZZ NOTEBOOK</title>
+<meta name="description" content="今聴いている曲、繰り返し戻ってくる名盤についての短い感想。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#050b1c;
+    --navy-900:#0a1730;
+    --navy-850:#0f2140;
+    --navy-800:#162e52;
+    --navy-700:#204070;
+    --gold-400:#c9a55c;
+    --gold-300:#ddc084;
+    --gold-dim:#8a7248;
+    --cream:#ede6d6;
+    --cream-dim:#9aa2ac;
+    --line:rgba(201,165,92,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--navy-900);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    font-size:18.5px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.06em;
+  }
+
+  :focus-visible{
+    outline:1px solid var(--gold-400);
+    outline-offset:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px clamp(20px,5vw,64px);
+    background:rgba(8,13,19,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .logo{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:20px;
+    letter-spacing:0.06em;
+    color:var(--cream);
+  }
+  .logo em{
+    font-style:italic;
+    color:var(--gold-400);
+    font-weight:400;
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:clamp(18px,3vw,40px);
+  }
+
+  nav a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+    position:relative;
+    padding-bottom:5px;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--gold-300);}
+  nav a.current{color:var(--gold-400);}
+  nav a.current::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-7px;
+    height:1px;
+    background:var(--gold-400);
+  }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 24px 70px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 45% 60% at 50% 105%, rgba(201,165,92,0.08), transparent 70%),
+      linear-gradient(to bottom, var(--navy-950) 0%, var(--navy-900) 100%);
+  }
+
+  .stars{position:absolute; inset:0; pointer-events:none;}
+  .stars circle{animation:twinkle 5s ease-in-out infinite;}
+  @keyframes twinkle{
+    0%, 100%{opacity:var(--base-op, 0.5);}
+    50%{opacity:calc(var(--base-op, 0.5) * 0.3);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stars circle{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  .page-header .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.36em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+  }
+
+  .page-header h1{
+    position:relative;
+    z-index:2;
+    font-family:'Bodoni Moda', serif;
+    font-size:clamp(42px, 7vw, 72px);
+    font-weight:500;
+    color:var(--cream);
+  }
+  .page-header h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-400);
+  }
+
+  .page-header p.desc{
+    position:relative;
+    z-index:2;
+    max-width:420px;
+    margin-top:20px;
+    font-size:17px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  /* ---------- TRACK LIST ---------- */
+  .tracklist{
+    max-width:700px;
+    margin:0 auto;
+    padding:90px 24px 130px;
+    list-style:none;
+  }
+
+  .track{
+    display:flex;
+    gap:24px;
+    padding:36px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .track:first-child{padding-top:0;}
+  .track:last-child{border-bottom:none;}
+
+  .track-num{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    color:var(--gold-dim);
+    flex-shrink:0;
+    padding-top:4px;
+    width:24px;
+  }
+
+  .track-body{flex:1; min-width:0;}
+
+  .track-heading{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:2px 12px;
+  }
+
+  .track-heading h3{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:23px;
+    color:var(--cream);
+  }
+
+  .track-heading .artist{
+    font-family:'Space Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    color:var(--gold-400);
+  }
+  .track-heading .artist::before{
+    content:"— ";
+    color:var(--gold-dim);
+  }
+
+  .track-body p.comment{
+    margin-top:10px;
+    font-size:17.5px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  .end-mark{
+    text-align:center;
+    padding:0 24px 130px;
+    margin-top:-70px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:60px 24px 40px;
+    background:var(--navy-950);
+  }
+  .footer-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  }
+  .footer-brand .logo{display:block; margin-bottom:12px;}
+  .footer-brand p{
+    color:var(--cream-dim);
+    font-size:15px;
+    max-width:280px;
+  }
+  .footer-links h4{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:16px;
+  }
+  .footer-links ul{list-style:none;}
+  .footer-links li{margin-bottom:10px;}
+  .footer-links a{
+    font-size:15px;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+  }
+  .footer-links a:hover, .footer-links a:focus-visible{color:var(--gold-300);}
+
+  .footer-bottom{
+    max-width:1000px;
+    margin:48px auto 0;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 30px;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .footer-bottom p{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.02em;
+    color:var(--cream-dim);
+    opacity:0.65;
+    line-height:1.8;
+    max-width:640px;
+  }
+  .footer-bottom .credit{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--cream-dim);
+    opacity:0.5;
+  }
+
+  @media (max-width:640px){
+    nav ul{gap:16px;}
+    nav a{font-size:10px;}
+    .track{gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Index</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="playlist.html" class="current">Playlist</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-header">
+  <svg class="stars" aria-hidden="true" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+    <circle cx="62" cy="60" r="1" fill="#ede6d6" style="--base-op:.5; animation-delay:-0.5s"/>
+    <circle cx="180" cy="120" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-2.1s"/>
+    <circle cx="300" cy="50" r="1.2" fill="#ddc084" style="--base-op:.55; animation-delay:-3.4s"/>
+    <circle cx="420" cy="100" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-1.2s"/>
+    <circle cx="560" cy="40" r="1" fill="#ede6d6" style="--base-op:.45; animation-delay:-4s"/>
+    <circle cx="700" cy="130" r="0.9" fill="#ddc084" style="--base-op:.4; animation-delay:-0.8s"/>
+    <circle cx="840" cy="70" r="1.1" fill="#ede6d6" style="--base-op:.5; animation-delay:-1.8s"/>
+    <circle cx="960" cy="150" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-2.6s"/>
+    <circle cx="1080" cy="60" r="1" fill="#ddc084" style="--base-op:.45; animation-delay:-0.3s"/>
+    <circle cx="1150" cy="140" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-3.7s"/>
+  </svg>
+  <p class="eyebrow">B1 — Listening List</p>
+  <h1 class="display">Playlist<em>.</em></h1>
+  <p class="desc">今聴いている曲、繰り返し戻ってくる名盤。</p>
+</section>
+
+<ul class="tracklist">
+
+  <li class="track">
+    <span class="track-num mono">01</span>
+    <div class="track-body">
+      <div class="track-heading">
+        <h3>So What</h3>
+        <span class="artist">Miles Davis</span>
+      </div>
+      <p class="comment">冒頭のベースだけで空気が変わる。何度聴いても最初の数秒に耳を持っていかれる。</p>
+    </div>
+  </li>
+
+  <li class="track">
+    <span class="track-num mono">02</span>
+    <div class="track-body">
+      <div class="track-heading">
+        <h3>Naima</h3>
+        <span class="artist">John Coltrane</span>
+      </div>
+      <p class="comment">夜、静かな部屋で聴くと一番しっくりくる一曲。旋律の間の取り方が好き。</p>
+    </div>
+  </li>
+
+  <li class="track">
+    <span class="track-num mono">03</span>
+    <div class="track-body">
+      <div class="track-heading">
+        <h3>Round Midnight</h3>
+        <span class="artist">Thelonious Monk</span>
+      </div>
+      <p class="comment">不協和音のはずなのに、なぜか居心地がいい。理由はまだ言葉にできていない。</p>
+    </div>
+  </li>
+
+</ul>
+
+<p class="end-mark">— fin —</p>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+      <p>Azalea Creative Room が運営する、ジャズ学習のための個人記録サイトです。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Azalea Creative Room</h4>
+      <ul>
+        <li><a href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">Home</a></li>
+        <li><a href="https://kakuyomu.jp" target="_blank" rel="noopener">Kakuyomu</a></li>
+        <li><a href="https://www.pixiv.net" target="_blank" rel="noopener">pixiv</a></li>
+        <li><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>本サイトに掲載されている文章・画像・デザインについて、生成AIの学習データとしての使用を禁止します。</p>
+    <p class="credit">© Azalea Creative Room — Jazz Notebook</p>
+  </div>
+</footer>
+
+</body>
+</html>
