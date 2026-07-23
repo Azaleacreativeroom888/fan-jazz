@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About ｜ JAZZ NOTEBOOK</title>
+<meta name="description" content="このノートを書いている人と、その目的について。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#050b1c;
+    --navy-900:#0a1730;
+    --navy-850:#0f2140;
+    --navy-800:#162e52;
+    --navy-700:#204070;
+    --gold-400:#c9a55c;
+    --gold-300:#ddc084;
+    --gold-dim:#8a7248;
+    --cream:#ede6d6;
+    --cream-dim:#9aa2ac;
+    --line:rgba(201,165,92,0.14);
+    --err:#c06070;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--navy-900);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    font-size:18.5px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.06em;
+  }
+
+  :focus-visible{
+    outline:1px solid var(--gold-400);
+    outline-offset:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px clamp(20px,5vw,64px);
+    background:rgba(8,13,19,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .logo{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:20px;
+    letter-spacing:0.06em;
+    color:var(--cream);
+  }
+  .logo em{
+    font-style:italic;
+    color:var(--gold-400);
+    font-weight:400;
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:clamp(18px,3vw,40px);
+  }
+
+  nav a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+    position:relative;
+    padding-bottom:5px;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--gold-300);}
+  nav a.current{color:var(--gold-400);}
+  nav a.current::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-7px;
+    height:1px;
+    background:var(--gold-400);
+  }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 24px 70px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 45% 60% at 50% 105%, rgba(201,165,92,0.08), transparent 70%),
+      linear-gradient(to bottom, var(--navy-950) 0%, var(--navy-900) 100%);
+  }
+
+  .stars{position:absolute; inset:0; pointer-events:none;}
+  .stars circle{animation:twinkle 5s ease-in-out infinite;}
+  @keyframes twinkle{
+    0%, 100%{opacity:var(--base-op, 0.5);}
+    50%{opacity:calc(var(--base-op, 0.5) * 0.3);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stars circle{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  .page-header .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.36em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+  }
+
+  .page-header h1{
+    position:relative;
+    z-index:2;
+    font-family:'Bodoni Moda', serif;
+    font-size:clamp(42px, 7vw, 72px);
+    font-weight:500;
+    color:var(--cream);
+  }
+  .page-header h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-400);
+  }
+
+  .page-header p.desc{
+    position:relative;
+    z-index:2;
+    max-width:420px;
+    margin-top:20px;
+    font-size:17px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  /* ---------- BIO ---------- */
+  .bio{
+    max-width:620px;
+    margin:0 auto;
+    padding:100px 24px 20px;
+  }
+  .bio .label{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--gold-400);
+    margin-bottom:22px;
+  }
+  .bio h2{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:clamp(26px, 3.4vw, 32px);
+    margin-bottom:24px;
+    color:var(--cream);
+  }
+  .bio p{
+    color:var(--cream-dim);
+    font-size:18.5px;
+    margin-bottom:18px;
+  }
+  .bio p:last-child{margin-bottom:0;}
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    max-width:700px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-label span{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    white-space:nowrap;
+  }
+  .section-label .rule{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* ---------- LINKS ---------- */
+  .link-block{
+    max-width:700px;
+    margin:0 auto;
+    padding:24px 24px 20px;
+  }
+
+  .link-list{list-style:none;}
+
+  .link-item{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:18px;
+    padding:20px 4px;
+    border-bottom:1px solid var(--line);
+    transition:padding-left 0.3s ease, border-color 0.3s ease;
+  }
+  .link-item:hover, .link-item:focus-visible{
+    padding-left:12px;
+    border-color:var(--gold-dim);
+  }
+  .link-item:last-child{border-bottom:none;}
+
+  .link-main{min-width:0;}
+  .link-name{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:20px;
+    color:var(--cream);
+  }
+  .link-desc{
+    display:block;
+    margin-top:3px;
+    font-size:14.5px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+  .link-arrow{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    color:var(--gold-dim);
+    flex-shrink:0;
+    transition:color 0.3s ease, transform 0.3s ease;
+  }
+  .link-item:hover .link-arrow{color:var(--gold-400); transform:translateX(3px);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    max-width:520px;
+    margin:0 auto;
+    padding:70px 24px 40px;
+  }
+  .contact h2{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:clamp(24px,3.4vw,30px);
+    text-align:center;
+    margin-bottom:16px;
+    color:var(--cream);
+  }
+  .contact .form-intro{
+    text-align:center;
+    color:var(--cream-dim);
+    font-size:16px;
+    margin-bottom:34px;
+  }
+
+  .form-success{
+    background:rgba(201,165,92,0.08);
+    border:1px solid var(--gold-dim);
+    padding:16px 20px;
+    text-align:center;
+    color:var(--gold-300);
+    font-size:15px;
+    margin-bottom:24px;
+  }
+  .form-error-global{
+    background:rgba(192,96,112,0.1);
+    border:1px solid rgba(192,96,112,0.4);
+    padding:12px 16px;
+    color:var(--err);
+    font-size:14px;
+    margin-bottom:20px;
+  }
+
+  .contact form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  .form-group{display:flex; flex-direction:column; gap:8px;}
+  .form-label{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+  }
+  .form-label .required{color:var(--err);}
+
+  .contact input,
+  .contact textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--navy-700);
+    color:var(--cream);
+    padding:10px 2px;
+    font-family:'Cormorant Garamond', serif;
+    font-size:17px;
+    transition:border-color 0.3s ease;
+  }
+  .contact input:focus,
+  .contact textarea:focus{border-color:var(--gold-400); outline:none;}
+  .contact textarea{resize:vertical; min-height:110px;}
+  .contact input::placeholder,
+  .contact textarea::placeholder{color:var(--cream-dim); opacity:0.5;}
+
+  .field-error{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--err);
+    min-height:14px;
+  }
+
+  .form-submit{
+    align-self:center;
+    margin-top:10px;
+    padding:13px 44px;
+    background:transparent;
+    color:var(--gold-400);
+    border:1px solid var(--gold-dim);
+    font-family:'Space Mono', monospace;
+    font-weight:400;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .form-submit:hover{
+    background:var(--gold-400);
+    color:var(--navy-950);
+    border-color:var(--gold-400);
+  }
+  .form-submit:disabled{opacity:0.5; cursor:not-allowed;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:60px 24px 40px;
+    background:var(--navy-950);
+  }
+  .footer-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  }
+  .footer-brand .logo{display:block; margin-bottom:12px;}
+  .footer-brand p{
+    color:var(--cream-dim);
+    font-size:15px;
+    max-width:280px;
+  }
+  .footer-links h4{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:16px;
+  }
+  .footer-links ul{list-style:none;}
+  .footer-links li{margin-bottom:10px;}
+  .footer-links a{
+    font-size:15px;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+  }
+  .footer-links a:hover, .footer-links a:focus-visible{color:var(--gold-300);}
+
+  .footer-bottom{
+    max-width:1000px;
+    margin:48px auto 0;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+  }
+  .footer-bottom p{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.02em;
+    color:var(--cream-dim);
+    opacity:0.65;
+    line-height:1.9;
+    max-width:760px;
+    margin:0 auto 8px;
+    text-align:center;
+  }
+  .footer-bottom .credit{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--cream-dim);
+    opacity:0.5;
+  }
+
+  @media (max-width:640px){
+    nav ul{gap:16px;}
+    nav a{font-size:10px;}
+    .link-item{flex-direction:column; align-items:flex-start; gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Index</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="about.html" class="current">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-header">
+  <svg class="stars" aria-hidden="true" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+    <circle cx="62" cy="60" r="1" fill="#ede6d6" style="--base-op:.5; animation-delay:-0.5s"/>
+    <circle cx="180" cy="120" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-2.1s"/>
+    <circle cx="300" cy="50" r="1.2" fill="#ddc084" style="--base-op:.55; animation-delay:-3.4s"/>
+    <circle cx="420" cy="100" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-1.2s"/>
+    <circle cx="560" cy="40" r="1" fill="#ede6d6" style="--base-op:.45; animation-delay:-4s"/>
+    <circle cx="700" cy="130" r="0.9" fill="#ddc084" style="--base-op:.4; animation-delay:-0.8s"/>
+    <circle cx="840" cy="70" r="1.1" fill="#ede6d6" style="--base-op:.5; animation-delay:-1.8s"/>
+    <circle cx="960" cy="150" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-2.6s"/>
+    <circle cx="1080" cy="60" r="1" fill="#ddc084" style="--base-op:.45; animation-delay:-0.3s"/>
+    <circle cx="1150" cy="140" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-3.7s"/>
+  </svg>
+  <p class="eyebrow">B2 — This Notebook</p>
+  <h1 class="display">About<em>.</em></h1>
+  <p class="desc">このノートを書いている人と、その目的について。</p>
+</section>
+
+<section class="bio">
+  <span class="label">Liner Notes</span>
+  <h2 class="display">はじめに</h2>
+  <p>
+    漫画とイラストを描きながら、翻訳の勉強もしています。普段は絵と言葉の仕事をしていますが、
+    ここでは少し違う耳の使い方をしてみたくて、ジャズを学ぶための記録をつけることにしました。
+  </p>
+  <p>
+    理論書を一冊ずつ読み、名盤を繰り返し聴き、わかったことも、わからないままのことも、
+    そのまま書き留めています。上達の記録というより、聴き方が変わっていく過程のメモです。
+  </p>
+  <p>
+    本業の創作活動については、下記のリンクからご覧いただけます。
+  </p>
+</section>
+
+<div class="section-label">
+  <span>Elsewhere</span>
+  <span class="rule"></span>
+</div>
+
+<section class="link-block">
+  <ul class="link-list">
+    <li>
+      <a class="link-item" href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">Azalea Creative Room</span>
+          <span class="link-desc">創作活動の拠点サイト</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://rookie.shonenjump.com/users/14728546961183734555" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">ジャンプルーキー</span>
+          <span class="link-desc">オリジナル漫画を掲載中</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://daysneo.com/author/Sam333333Sam/" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">DaysNEO</span>
+          <span class="link-desc">漫画掲載サイト</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">pixiv</span>
+          <span class="link-desc">イラスト・二次創作</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">カクヨム</span>
+          <span class="link-desc">小説を掲載中</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">YouTube — リリポピ</span>
+          <span class="link-desc">動画チャンネル</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+    <li>
+      <a class="link-item" href="https://bsky.app/profile/azaleaazalea88.bsky.social" target="_blank" rel="noopener">
+        <div class="link-main">
+          <span class="link-name">Bluesky</span>
+          <span class="link-desc">近況・作品のお知らせ</span>
+        </div>
+        <span class="link-arrow mono">↗</span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<div class="section-label">
+  <span>Contact</span>
+  <span class="rule"></span>
+</div>
+
+<section class="contact" id="contact">
+  <h2 class="display">お問い合わせ</h2>
+  <p class="form-intro">ご質問・ご感想などはこちらからどうぞ。</p>
+
+  <div data-fs-success class="form-success" style="display:none;">
+    メッセージを送信しました。ありがとうございます。
+  </div>
+  <div data-fs-error class="form-error-global" style="display:none;"></div>
+
+  <form id="contact-form" action="https://formspree.io/f/maqvpvoz" method="POST">
+    <div class="form-group">
+      <label class="form-label" for="name">お名前</label>
+      <input class="mono" type="text" id="name" name="name" placeholder="" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">メールアドレス <span class="required">*</span></label>
+      <input type="email" id="email" name="email" data-fs-field placeholder="" required>
+      <span data-fs-error="email" class="field-error"></span>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="message">メッセージ <span class="required">*</span></label>
+      <textarea id="message" name="message" data-fs-field placeholder="" rows="6" required></textarea>
+      <span data-fs-error="message" class="field-error"></span>
+    </div>
+    <button class="form-submit" type="submit" data-fs-submit-btn>送信する</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+      <p>Azalea Creative Room が運営する、ジャズ学習のための個人記録サイトです。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Azalea Creative Room</h4>
+      <ul>
+        <li><a href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">Home</a></li>
+        <li><a href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">Kakuyomu</a></li>
+        <li><a href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">pixiv</a></li>
+        <li><a href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>当サイトに掲載されている画像・文章・作品について、AI学習への利用、トレース（トレパク）、無断転載・転載、二次利用を禁止します。スクリーンショットの転載・無断引用はご遠慮ください。</p>
+    <p>Please refrain from using any images, text, or works on this website for AI training, tracing, unauthorized reproduction, redistribution, or secondary use.</p>
+    <span class="credit">© Azalea Creative Room — Jazz Notebook</span>
+  </div>
+</footer>
+
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#contact-form', formId: 'maqvpvoz' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
