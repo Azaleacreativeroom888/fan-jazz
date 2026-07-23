@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery ｜ JAZZ NOTEBOOK</title>
+<meta name="description" content="アルバムジャケット、スケッチ、視覚的なメモの記録。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#050b1c;
+    --navy-900:#0a1730;
+    --navy-850:#0f2140;
+    --navy-800:#162e52;
+    --navy-700:#204070;
+    --gold-400:#c9a55c;
+    --gold-300:#ddc084;
+    --gold-dim:#8a7248;
+    --cream:#ede6d6;
+    --cream-dim:#9aa2ac;
+    --line:rgba(201,165,92,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--navy-900);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    font-size:18.5px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.06em;
+  }
+
+  :focus-visible{
+    outline:1px solid var(--gold-400);
+    outline-offset:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px clamp(20px,5vw,64px);
+    background:rgba(8,13,19,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .logo{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:20px;
+    letter-spacing:0.06em;
+    color:var(--cream);
+  }
+  .logo em{
+    font-style:italic;
+    color:var(--gold-400);
+    font-weight:400;
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:clamp(18px,3vw,40px);
+  }
+
+  nav a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+    position:relative;
+    padding-bottom:5px;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--gold-300);}
+  nav a.current{color:var(--gold-400);}
+  nav a.current::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-7px;
+    height:1px;
+    background:var(--gold-400);
+  }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 24px 70px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 45% 60% at 50% 105%, rgba(201,165,92,0.08), transparent 70%),
+      linear-gradient(to bottom, var(--navy-950) 0%, var(--navy-900) 100%);
+  }
+
+  .stars{position:absolute; inset:0; pointer-events:none;}
+  .stars circle{animation:twinkle 5s ease-in-out infinite;}
+  @keyframes twinkle{
+    0%, 100%{opacity:var(--base-op, 0.5);}
+    50%{opacity:calc(var(--base-op, 0.5) * 0.3);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stars circle{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  .page-header .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.36em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+  }
+
+  .page-header h1{
+    position:relative;
+    z-index:2;
+    font-family:'Bodoni Moda', serif;
+    font-size:clamp(42px, 7vw, 72px);
+    font-weight:500;
+    color:var(--cream);
+  }
+  .page-header h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-400);
+  }
+
+  .page-header p.desc{
+    position:relative;
+    z-index:2;
+    max-width:420px;
+    margin-top:20px;
+    font-size:17px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px 24px 0;
+  }
+  .filter-btn{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    background:transparent;
+    border:1px solid var(--navy-700);
+    padding:9px 20px;
+    cursor:pointer;
+    transition:color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .filter-btn:hover{color:var(--gold-300); border-color:var(--gold-dim);}
+  .filter-btn.active{
+    color:var(--navy-950);
+    background:var(--gold-400);
+    border-color:var(--gold-400);
+  }
+
+  /* ---------- GALLERY GRID ---------- */
+  .gallery{
+    max-width:1080px;
+    margin:0 auto;
+    padding:44px 24px 130px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:34px 28px;
+  }
+  .card{
+    display:block;
+    cursor:pointer;
+    background:none;
+    border:none;
+    text-align:left;
+    padding:0;
+    color:inherit;
+    font-family:inherit;
+  }
+  .card.is-hidden{display:none;}
+
+  .frame{
+    position:relative;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border:1px solid var(--line);
+    transition:border-color 0.3s ease, transform 0.3s ease;
+  }
+  .card:hover .frame, .card:focus-visible .frame{
+    border-color:var(--gold-dim);
+    transform:translateY(-3px);
+  }
+
+  /* placeholder art patterns — swap these divs for <img> tags when real artwork is ready */
+  .art{position:absolute; inset:0;}
+  .art-album{
+    background:
+      radial-gradient(circle at 78% 82%, rgba(5,11,28,0.55) 0 14%, transparent 15%),
+      linear-gradient(155deg, var(--c1) 0%, var(--c2) 55%, var(--c3) 100%);
+  }
+  .art-sketch{
+    background-color:#e9e1cd;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(10,23,48,0.06) 0 1px, transparent 1px 7px),
+      repeating-linear-gradient(25deg, rgba(10,23,48,0.04) 0 1px, transparent 1px 9px);
+  }
+  .art-note{
+    background:var(--navy-850);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+
+  .tag{
+    position:absolute;
+    top:12px;
+    left:12px;
+    font-family:'Space Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    background:rgba(5,11,28,0.55);
+    color:var(--gold-300);
+    border:1px solid rgba(221,192,132,0.3);
+  }
+
+  .caption{
+    padding-top:16px;
+  }
+  .caption .cap-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:10px;
+  }
+  .caption h3{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:18px;
+    color:var(--cream);
+  }
+  .caption time{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--gold-dim);
+    white-space:nowrap;
+  }
+  .caption p{
+    margin-top:5px;
+    font-size:14.5px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  @media (max-width:860px){
+    .gallery{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:520px){
+    .gallery{grid-template-columns:1fr; gap:40px;}
+    nav ul{gap:16px;}
+    nav a{font-size:10px;}
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+    background:rgba(5,11,28,0.92);
+    backdrop-filter:blur(6px);
+  }
+  .lightbox.open{display:flex;}
+  .lightbox-inner{
+    max-width:560px;
+    width:100%;
+  }
+  .lightbox .frame{
+    aspect-ratio:1/1;
+    border-color:var(--gold-dim);
+  }
+  .lightbox-caption{
+    padding-top:20px;
+    text-align:center;
+  }
+  .lightbox-caption time{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    color:var(--gold-400);
+    margin-bottom:10px;
+  }
+  .lightbox-caption h3{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:24px;
+    color:var(--cream);
+  }
+  .lightbox-caption p{
+    margin-top:8px;
+    font-size:16px;
+    color:var(--cream-dim);
+  }
+  .lightbox-close{
+    position:absolute;
+    top:26px;
+    right:clamp(20px,5vw,64px);
+    background:transparent;
+    border:1px solid var(--navy-700);
+    color:var(--cream-dim);
+    width:38px;
+    height:38px;
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    transition:color 0.25s ease, border-color 0.25s ease;
+  }
+  .lightbox-close:hover{color:var(--gold-300); border-color:var(--gold-dim);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:60px 24px 40px;
+    background:var(--navy-950);
+  }
+  .footer-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  }
+  .footer-brand .logo{display:block; margin-bottom:12px;}
+  .footer-brand p{
+    color:var(--cream-dim);
+    font-size:15px;
+    max-width:280px;
+  }
+  .footer-links h4{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:16px;
+  }
+  .footer-links ul{list-style:none;}
+  .footer-links li{margin-bottom:10px;}
+  .footer-links a{
+    font-size:15px;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+  }
+  .footer-links a:hover, .footer-links a:focus-visible{color:var(--gold-300);}
+
+  .footer-bottom{
+    max-width:1000px;
+    margin:48px auto 0;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 30px;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .footer-bottom p{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.02em;
+    color:var(--cream-dim);
+    opacity:0.65;
+    line-height:1.8;
+    max-width:640px;
+  }
+  .footer-bottom .credit{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--cream-dim);
+    opacity:0.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Index</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html" class="current">Gallery</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-header">
+  <svg class="stars" aria-hidden="true" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+    <circle cx="62" cy="60" r="1" fill="#ede6d6" style="--base-op:.5; animation-delay:-0.5s"/>
+    <circle cx="180" cy="120" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-2.1s"/>
+    <circle cx="300" cy="50" r="1.2" fill="#ddc084" style="--base-op:.55; animation-delay:-3.4s"/>
+    <circle cx="420" cy="100" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-1.2s"/>
+    <circle cx="560" cy="40" r="1" fill="#ede6d6" style="--base-op:.45; animation-delay:-4s"/>
+    <circle cx="700" cy="130" r="0.9" fill="#ddc084" style="--base-op:.4; animation-delay:-0.8s"/>
+    <circle cx="840" cy="70" r="1.1" fill="#ede6d6" style="--base-op:.5; animation-delay:-1.8s"/>
+    <circle cx="960" cy="150" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-2.6s"/>
+    <circle cx="1080" cy="60" r="1" fill="#ddc084" style="--base-op:.45; animation-delay:-0.3s"/>
+    <circle cx="1150" cy="140" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-3.7s"/>
+  </svg>
+  <p class="eyebrow">A2 — Visual Notes</p>
+  <h1 class="display">Gallery<em>.</em></h1>
+  <p class="desc">アルバムジャケット、スケッチ、視覚的なメモの記録。</p>
+</section>
+
+<div class="filters" role="tablist" aria-label="カテゴリで絞り込み">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="album">Album</button>
+  <button class="filter-btn" data-filter="sketch">Sketch</button>
+  <button class="filter-btn" data-filter="note">Note</button>
+</div>
+
+<!--
+  プレースホルダーについて:
+  .art-album / .art-sketch / .art-note の div が仮のビジュアルです。
+  実際の画像を使う場合は、この div の代わりに <img src="..." alt="..."> を
+  .frame の中に入れてください（CSSの aspect-ratio と object-fit をそのまま使えます）。
+-->
+<section class="gallery" id="gallery">
+
+  <button class="card" data-category="album" data-title="Kind of Blue" data-date="2026.07.10" data-desc="ジャケットの余白の使い方が好きで、模写してみた。">
+    <div class="frame">
+      <div class="art art-album" style="--c1:#0f2140; --c2:#204070; --c3:#c9a55c;"></div>
+      <span class="tag">Album</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>Kind of Blue</h3>
+        <time>2026.07.10</time>
+      </div>
+      <p>ジャケットの余白の使い方が好きで、模写してみた。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="sketch" data-title="サックスの構え" data-date="2026.07.08" data-desc="演奏中の手の角度、線の練習。">
+    <div class="frame">
+      <div class="art art-sketch"></div>
+      <span class="tag">Sketch</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>サックスの構え</h3>
+        <time>2026.07.08</time>
+      </div>
+      <p>演奏中の手の角度、線の練習。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="note" data-title="ii-V-I の図" data-date="2026.07.05" data-desc="コード進行を自分なりに図にしてみたメモ。">
+    <div class="frame">
+      <div class="art art-note"></div>
+      <span class="tag">Note</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>ii-V-I の図</h3>
+        <time>2026.07.05</time>
+      </div>
+      <p>コード進行を自分なりに図にしてみたメモ。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="album" data-title="A Love Supreme" data-date="2026.06.28" data-desc="タイポグラフィの余韻が強くて、色だけ抽出してみた。">
+    <div class="frame">
+      <div class="art art-album" style="--c1:#1a1424; --c2:#3a2450; --c3:#ddc084;"></div>
+      <span class="tag">Album</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>A Love Supreme</h3>
+        <time>2026.06.28</time>
+      </div>
+      <p>タイポグラフィの余韻が強くて、色だけ抽出してみた。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="sketch" data-title="トランペットの艶" data-date="2026.06.22" data-desc="金属の反射をどう描くか、ずっと悩んでいる。">
+    <div class="frame">
+      <div class="art art-sketch"></div>
+      <span class="tag">Sketch</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>トランペットの艶</h3>
+        <time>2026.06.22</time>
+      </div>
+      <p>金属の反射をどう描くか、ずっと悩んでいる。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="note" data-title="スウィングの図" data-date="2026.06.15" data-desc="裏拍の感覚を言葉と図で残しておく試み。">
+    <div class="frame">
+      <div class="art art-note"></div>
+      <span class="tag">Note</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>スウィングの図</h3>
+        <time>2026.06.15</time>
+      </div>
+      <p>裏拍の感覚を言葉と図で残しておく試み。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="album" data-title="Blue Train" data-date="2026.06.09" data-desc="青の濃淡だけで印象がここまで変わるのが面白い。">
+    <div class="frame">
+      <div class="art art-album" style="--c1:#050b1c; --c2:#0f2140; --c3:#8a7248;"></div>
+      <span class="tag">Album</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>Blue Train</h3>
+        <time>2026.06.09</time>
+      </div>
+      <p>青の濃淡だけで印象がここまで変わるのが面白い。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="sketch" data-title="ピアニストの横顔" data-date="2026.06.02" data-desc="鍵盤に落ちる影を意識して描いた一枚。">
+    <div class="frame">
+      <div class="art art-sketch"></div>
+      <span class="tag">Sketch</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>ピアニストの横顔</h3>
+        <time>2026.06.02</time>
+      </div>
+      <p>鍵盤に落ちる影を意識して描いた一枚。</p>
+    </div>
+  </button>
+
+  <button class="card" data-category="note" data-title="レーベル年表" data-date="2026.05.27" data-desc="好きなレーベルの設立年を並べてみた覚え書き。">
+    <div class="frame">
+      <div class="art art-note"></div>
+      <span class="tag">Note</span>
+    </div>
+    <div class="caption">
+      <div class="cap-top">
+        <h3>レーベル年表</h3>
+        <time>2026.05.27</time>
+      </div>
+      <p>好きなレーベルの設立年を並べてみた覚え書き。</p>
+    </div>
+  </button>
+
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="拡大表示">
+  <button class="lightbox-close" id="lightboxClose" aria-label="閉じる">×</button>
+  <div class="lightbox-inner">
+    <div class="frame" id="lightboxFrame"></div>
+    <div class="lightbox-caption">
+      <time id="lightboxDate"></time>
+      <h3 id="lightboxTitle"></h3>
+      <p id="lightboxDesc"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+      <p>Azalea Creative Room が運営する、ジャズ学習のための個人記録サイトです。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Azalea Creative Room</h4>
+      <ul>
+        <li><a href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">Home</a></li>
+        <li><a href="https://kakuyomu.jp" target="_blank" rel="noopener">Kakuyomu</a></li>
+        <li><a href="https://www.pixiv.net" target="_blank" rel="noopener">pixiv</a></li>
+        <li><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>本サイトに掲載されている文章・画像・デザインについて、生成AIの学習データとしての使用を禁止します。</p>
+    <p class="credit">© Azalea Creative Room — Jazz Notebook</p>
+  </div>
+</footer>
+
+<script>
+  // Filters
+  var buttons = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.card');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var match = filter === 'all' || card.getAttribute('data-category') === filter;
+        card.classList.toggle('is-hidden', !match);
+      });
+    });
+  });
+
+  // Lightbox
+  var lightbox = document.getElementById('lightbox');
+  var lbFrame = document.getElementById('lightboxFrame');
+  var lbTitle = document.getElementById('lightboxTitle');
+  var lbDate = document.getElementById('lightboxDate');
+  var lbDesc = document.getElementById('lightboxDesc');
+  var lbClose = document.getElementById('lightboxClose');
+
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      var artEl = card.querySelector('.art');
+      lbFrame.innerHTML = '';
+      var clone = artEl.cloneNode(true);
+      lbFrame.appendChild(clone);
+      lbTitle.textContent = card.getAttribute('data-title');
+      lbDate.textContent = card.getAttribute('data-date');
+      lbDesc.textContent = card.getAttribute('data-desc');
+      lightbox.classList.add('open');
+    });
+  });
+
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body>
+</html>
