@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>グラミー賞 歴代受賞作品 ｜ JAZZ NOTEBOOK</title>
+<meta name="description" content="グラミー賞の歴代受賞作品についての感想記録。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#050b1c;
+    --navy-900:#0a1730;
+    --navy-850:#0f2140;
+    --navy-800:#162e52;
+    --navy-700:#204070;
+    --gold-400:#c9a55c;
+    --gold-300:#ddc084;
+    --gold-dim:#8a7248;
+    --cream:#ede6d6;
+    --cream-dim:#9aa2ac;
+    --line:rgba(201,165,92,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--navy-900);
+    color:var(--cream);
+    font-family:'Cormorant Garamond', serif;
+    font-size:18.5px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .display{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.06em;
+  }
+
+  :focus-visible{
+    outline:1px solid var(--gold-400);
+    outline-offset:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px clamp(20px,5vw,64px);
+    background:rgba(8,13,19,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .logo{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:20px;
+    letter-spacing:0.06em;
+    color:var(--cream);
+  }
+  .logo em{
+    font-style:italic;
+    color:var(--gold-400);
+    font-weight:400;
+  }
+
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:clamp(18px,3vw,40px);
+  }
+
+  nav a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+    position:relative;
+    padding-bottom:5px;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--gold-300);}
+  nav a.current{color:var(--gold-400);}
+  nav a.current::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-7px;
+    height:1px;
+    background:var(--gold-400);
+  }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:90px 24px 56px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 45% 60% at 50% 105%, rgba(201,165,92,0.08), transparent 70%),
+      linear-gradient(to bottom, var(--navy-950) 0%, var(--navy-900) 100%);
+  }
+
+  .stars{position:absolute; inset:0; pointer-events:none;}
+  .stars circle{animation:twinkle 5s ease-in-out infinite;}
+  @keyframes twinkle{
+    0%, 100%{opacity:var(--base-op, 0.5);}
+    50%{opacity:calc(var(--base-op, 0.5) * 0.3);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stars circle{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  .back-link{
+    position:relative;
+    z-index:2;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--cream-dim);
+    margin-bottom:30px;
+    transition:color 0.3s ease;
+  }
+  .back-link:hover{color:var(--gold-300);}
+
+  .page-header .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+  }
+
+  .page-header h1{
+    position:relative;
+    z-index:2;
+    font-family:'Bodoni Moda', serif;
+    font-size:clamp(34px, 5.4vw, 54px);
+    font-weight:500;
+    color:var(--cream);
+  }
+
+  .page-header p.desc{
+    position:relative;
+    z-index:2;
+    max-width:440px;
+    margin:20px auto 0;
+    font-size:17px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  /* ---------- AWARD LIST ---------- */
+  .awards{
+    max-width:720px;
+    margin:0 auto;
+    padding:90px 24px 130px;
+    list-style:none;
+  }
+
+  .award{
+    display:flex;
+    gap:26px;
+    padding:40px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .award:first-child{padding-top:0;}
+  .award:last-child{border-bottom:none;}
+
+  .award-cover{
+    width:84px;
+    height:84px;
+    flex-shrink:0;
+    border:1px solid var(--line);
+    background:
+      radial-gradient(circle at 78% 82%, rgba(5,11,28,0.55) 0 14%, transparent 15%),
+      linear-gradient(155deg, var(--c1) 0%, var(--c2) 55%, var(--c3) 100%);
+  }
+
+  .award-body{flex:1; min-width:0;}
+
+  .award-meta{
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    color:var(--gold-400);
+    margin-bottom:10px;
+  }
+  .award-meta .year{color:var(--gold-300);}
+
+  .award-body h3{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:23px;
+    color:var(--cream);
+  }
+
+  .award-body .artist{
+    display:block;
+    margin-top:2px;
+    font-size:15px;
+    font-style:italic;
+    color:var(--cream-dim);
+  }
+
+  .award-body p.impression{
+    margin-top:14px;
+    font-size:17.5px;
+    color:var(--cream);
+  }
+
+  .end-mark{
+    text-align:center;
+    padding:0 24px 130px;
+    margin-top:-70px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+  }
+
+  @media (max-width:560px){
+    .award{gap:16px;}
+    .award-cover{width:64px; height:64px;}
+    nav ul{gap:16px;}
+    nav a{font-size:10px;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:60px 24px 40px;
+    background:var(--navy-950);
+  }
+  .footer-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  }
+  .footer-brand .logo{display:block; margin-bottom:12px;}
+  .footer-brand p{
+    color:var(--cream-dim);
+    font-size:15px;
+    max-width:280px;
+  }
+  .footer-links h4{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:16px;
+  }
+  .footer-links ul{list-style:none;}
+  .footer-links li{margin-bottom:10px;}
+  .footer-links a{
+    font-size:15px;
+    color:var(--cream-dim);
+    transition:color 0.3s ease;
+  }
+  .footer-links a:hover, .footer-links a:focus-visible{color:var(--gold-300);}
+
+  .footer-bottom{
+    max-width:1000px;
+    margin:48px auto 0;
+    padding-top:26px;
+    border-top:1px solid var(--line);
+  }
+  .footer-bottom p{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.02em;
+    color:var(--cream-dim);
+    opacity:0.65;
+    line-height:1.9;
+    max-width:760px;
+    margin:0 auto 8px;
+    text-align:center;
+  }
+  .footer-bottom .credit{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--cream-dim);
+    opacity:0.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Index</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html" class="current">Gallery</a></li>
+      <li><a href="playlist.html">Playlist</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-header">
+  <svg class="stars" aria-hidden="true" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice">
+    <circle cx="62" cy="50" r="1" fill="#ede6d6" style="--base-op:.5; animation-delay:-0.5s"/>
+    <circle cx="200" cy="100" r="0.8" fill="#ede6d6" style="--base-op:.35; animation-delay:-2.1s"/>
+    <circle cx="340" cy="40" r="1.2" fill="#ddc084" style="--base-op:.55; animation-delay:-3.4s"/>
+    <circle cx="480" cy="90" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-1.2s"/>
+    <circle cx="640" cy="35" r="1" fill="#ede6d6" style="--base-op:.45; animation-delay:-4s"/>
+    <circle cx="800" cy="110" r="0.9" fill="#ddc084" style="--base-op:.4; animation-delay:-0.8s"/>
+    <circle cx="960" cy="55" r="1.1" fill="#ede6d6" style="--base-op:.5; animation-delay:-1.8s"/>
+    <circle cx="1100" cy="120" r="0.7" fill="#ede6d6" style="--base-op:.3; animation-delay:-2.6s"/>
+  </svg>
+  <a class="back-link" href="gallery.html">← Gallery</a>
+  <p class="eyebrow">Special Report</p>
+  <h1 class="display">グラミー賞<br>歴代受賞作品</h1>
+  <p class="desc">ジャズ部門を中心に、歴代の受賞作品を聴いた感想を書き留めています。</p>
+</section>
+
+<ul class="awards">
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#0f2140; --c2:#204070; --c3:#c9a55c;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">1965</span> — Album of the Year / Best Jazz Instrumental Album</p>
+      <h3>Getz/Gilberto</h3>
+      <span class="artist">Stan Getz &amp; João Gilberto</span>
+      <p class="impression">ジャズ作品として初めてアルバム・オブ・ザ・イヤーを獲った一枚。「The Girl from Ipanema」の涼しさは、理屈抜きで今聴いても新しい。</p>
+    </div>
+  </li>
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#1a1424; --c2:#3a2450; --c3:#ddc084;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">1964</span> — Best Jazz Instrumental Album</p>
+      <h3>Seven Steps to Heaven</h3>
+      <span class="artist">Miles Davis</span>
+      <p class="impression">バンドの過渡期に録られた一枚だと知って聴き直すと、まとまりのなさすら面白く感じた。</p>
+    </div>
+  </li>
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#050b1c; --c2:#0f2140; --c3:#8a7248;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">1969</span> — Best Jazz Instrumental Album</p>
+      <h3>Bill Evans at the Montreux Jazz Festival</h3>
+      <span class="artist">Bill Evans Trio</span>
+      <p class="impression">ライブ盤特有の間の緊張感が好き。スタジオ録音とは別人のような勢いがある。</p>
+    </div>
+  </li>
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#1a0e08; --c2:#3a2014; --c3:#c9a55c;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">1987</span> — Best Jazz Performance</p>
+      <h3>Tutu</h3>
+      <span class="artist">Miles Davis</span>
+      <p class="impression">エレクトリック期の音作りに最初は戸惑ったけれど、トランペットの音色だけは一貫して変わらないことに気づいた。</p>
+    </div>
+  </li>
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#0a1730; --c2:#162e52; --c3:#ddc084;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">2008</span> — Album of the Year</p>
+      <h3>River: The Joni Letters</h3>
+      <span class="artist">Herbie Hancock</span>
+      <p class="impression">Getz/Gilbertoから43年ぶりにジャズ作品が獲った年。ジョニ・ミッチェルの曲をここまで静かに解体できるのかと驚いた。</p>
+    </div>
+  </li>
+
+  <li class="award">
+    <div class="award-cover" style="--c1:#162e52; --c2:#204070; --c3:#c9a55c;"></div>
+    <div class="award-body">
+      <p class="award-meta"><span class="year">2025</span> — Best Jazz Performance</p>
+      <h3>Twinkle Twinkle Little Me</h3>
+      <span class="artist">Samara Joy &amp; Sullivan Fortner</span>
+      <p class="impression">現役の若い世代がこの部門を獲っているのを見ると、ジャズがまだ更新され続けているのを実感する。</p>
+    </div>
+  </li>
+
+</ul>
+
+<p class="end-mark">— fin —</p>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">JAZZ <em>NOTEBOOK</em></a>
+      <p>Azalea Creative Room が運営する、ジャズ学習のための個人記録サイトです。</p>
+    </div>
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Index</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Azalea Creative Room</h4>
+      <ul>
+        <li><a href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">Home</a></li>
+        <li><a href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">Kakuyomu</a></li>
+        <li><a href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">pixiv</a></li>
+        <li><a href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>当サイトに掲載されている画像・文章・作品について、AI学習への利用、トレース（トレパク）、無断転載・転載、二次利用を禁止します。スクリーンショットの転載・無断引用はご遠慮ください。</p>
+    <p>Please refrain from using any images, text, or works on this website for AI training, tracing, unauthorized reproduction, redistribution, or secondary use.</p>
+    <span class="credit">© Azalea Creative Room — Jazz Notebook</span>
+  </div>
+</footer>
+
+</body>
+</html>
