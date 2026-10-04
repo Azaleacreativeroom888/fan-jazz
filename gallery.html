@@ -169,6 +169,58 @@
     color:var(--cream-dim);
   }
 
+  /* ---------- FEATURED LINK BOX ---------- */
+  .feature-box{
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px 24px 0;
+  }
+  .feature-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    padding:32px 36px;
+    border:1px solid var(--gold-dim);
+    background:linear-gradient(135deg, rgba(201,165,92,0.08), transparent 60%);
+    transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  }
+  .feature-link:hover, .feature-link:focus-visible{
+    border-color:var(--gold-400);
+    transform:translateY(-2px);
+  }
+  .feature-text .feature-label{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-bottom:10px;
+  }
+  .feature-text h2{
+    font-family:'Bodoni Moda', serif;
+    font-weight:500;
+    font-size:clamp(22px, 3vw, 28px);
+    color:var(--cream);
+    margin-bottom:8px;
+  }
+  .feature-text p{
+    font-size:15.5px;
+    font-style:italic;
+    color:var(--cream-dim);
+    max-width:460px;
+  }
+  .feature-arrow{
+    font-family:'Space Mono', monospace;
+    font-size:22px;
+    color:var(--gold-400);
+    flex-shrink:0;
+    transition:transform 0.3s ease;
+  }
+  .feature-link:hover .feature-arrow{transform:translateX(5px);}
+
   /* ---------- FILTERS ---------- */
   .filters{
     display:flex;
@@ -177,7 +229,7 @@
     gap:10px;
     max-width:1080px;
     margin:0 auto;
-    padding:64px 24px 0;
+    padding:56px 24px 0;
   }
   .filter-btn{
     font-family:'Space Mono', monospace;
@@ -301,6 +353,7 @@
     .gallery{grid-template-columns:1fr; gap:40px;}
     nav ul{gap:16px;}
     nav a{font-size:10px;}
+    .feature-link{padding:26px;}
   }
 
   /* ---------- LIGHTBOX ---------- */
@@ -406,11 +459,6 @@
     margin:48px auto 0;
     padding-top:26px;
     border-top:1px solid var(--line);
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px 30px;
-    justify-content:space-between;
-    align-items:center;
   }
   .footer-bottom p{
     font-family:'Space Mono', monospace;
@@ -418,10 +466,15 @@
     letter-spacing:0.02em;
     color:var(--cream-dim);
     opacity:0.65;
-    line-height:1.8;
-    max-width:640px;
+    line-height:1.9;
+    max-width:760px;
+    margin:0 auto 8px;
+    text-align:center;
   }
   .footer-bottom .credit{
+    display:block;
+    text-align:center;
+    margin-top:14px;
     font-family:'Space Mono', monospace;
     font-size:10.5px;
     color:var(--cream-dim);
@@ -461,6 +514,17 @@
   <h1 class="display">Gallery<em>.</em></h1>
   <p class="desc">アルバムジャケット、スケッチ、視覚的なメモの記録。</p>
 </section>
+
+<div class="feature-box">
+  <a class="feature-link" href="report1.html">
+    <div class="feature-text">
+      <span class="feature-label">Special Report</span>
+      <h2 class="display">グラミー賞 歴代受賞作品</h2>
+      <p>グラミー賞の歴代受賞作品について、聴いた感想をまとめています。</p>
+    </div>
+    <span class="feature-arrow">→</span>
+  </a>
+</div>
 
 <div class="filters" role="tablist" aria-label="カテゴリで絞り込み">
   <button class="filter-btn active" data-filter="all">All</button>
@@ -636,15 +700,16 @@
       <h4>Azalea Creative Room</h4>
       <ul>
         <li><a href="https://azaleacreativeroom888.github.io" target="_blank" rel="noopener">Home</a></li>
-        <li><a href="https://kakuyomu.jp" target="_blank" rel="noopener">Kakuyomu</a></li>
-        <li><a href="https://www.pixiv.net" target="_blank" rel="noopener">pixiv</a></li>
-        <li><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
+        <li><a href="https://kakuyomu.jp/users/azalea_azalea72" target="_blank" rel="noopener">Kakuyomu</a></li>
+        <li><a href="https://www.pixiv.net/users/105728284" target="_blank" rel="noopener">pixiv</a></li>
+        <li><a href="https://www.youtube.com/@LilyPopins0512" target="_blank" rel="noopener">YouTube — リリポピ</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>本サイトに掲載されている文章・画像・デザインについて、生成AIの学習データとしての使用を禁止します。</p>
-    <p class="credit">© Azalea Creative Room — Jazz Notebook</p>
+    <p>当サイトに掲載されている画像・文章・作品について、AI学習への利用、トレース（トレパク）、無断転載・転載、二次利用を禁止します。スクリーンショットの転載・無断引用はご遠慮ください。</p>
+    <p>Please refrain from using any images, text, or works on this website for AI training, tracing, unauthorized reproduction, redistribution, or secondary use.</p>
+    <span class="credit">© Azalea Creative Room — Jazz Notebook</span>
   </div>
 </footer>
 
